@@ -1,6 +1,7 @@
 package mc.mod.sgcraft;
 
 import mc.mod.sgcraft.item.ModItems;
+import mc.mod.sgcraft.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.Identifier;
@@ -19,6 +20,7 @@ public class SGCraft implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.registerModItems();
+		ModSounds.registerModSounds();
 	}
 
 	public static Identifier id(String path) {

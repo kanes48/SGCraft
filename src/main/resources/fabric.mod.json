@@ -18,6 +18,9 @@
 		"main": [
 			"mc.mod.sgcraft.SGCraft"
 		],
+		"client": [
+			"mc.mod.sgcraft.client.ShotgunClient"
+		],
 		"fabric-datagen": [
 			"mc.mod.sgcraft.SGCraftDataGenerator"
 		]
