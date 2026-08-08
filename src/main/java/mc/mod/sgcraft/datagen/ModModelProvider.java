@@ -9,17 +9,28 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 
 public class ModModelProvider extends FabricModelProvider {
 
-    public ModModelProvider(FabricPackOutput output){
+    public ModModelProvider(FabricPackOutput output) {
         super(output);
     }
 
     @Override
-    public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
-
+    public void generateBlockStateModels(
+            BlockModelGenerators blockModelGenerators
+    ) {
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerators itemModelGenerators) {
-        itemModelGenerators.generateFlatItem(ModItems.SHOTGUN, ModelTemplates.FLAT_ITEM);
+    public void generateItemModels(
+            ItemModelGenerators itemModelGenerator
+    ) {
+        itemModelGenerator.generateFlatItem(
+                ModItems.SHOTGUN,
+                ModelTemplates.FLAT_ITEM
+        );
+    }
+
+    @Override
+    public String getName() {
+        return "ModModelProvider";
     }
 }
