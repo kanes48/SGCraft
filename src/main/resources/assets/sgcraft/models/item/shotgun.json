@@ -2,13 +2,13 @@
 	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sgcraft:item/handle_texture",
-		"1": "sgcraft:item/body",
-		"2": "sgcraft:item/trigger",
-		"3": "sgcraft:item/barrel",
-		"4": "sgcraft:item/aiming",
-		"5": "sgcraft:item/metal",
-		"particle": "sgcraft:item/handle_texture"
+		"0": "sgcraft:item/shotgun/handle_texture",
+		"1": "sgcraft:item/shotgun/body",
+		"2": "sgcraft:item/shotgun/trigger",
+		"3": "sgcraft:item/shotgun/barrel",
+		"4": "sgcraft:item/shotgun/aiming",
+		"5": "sgcraft:item/shotgun/metal",
+		"particle": "sgcraft:item/shotgun/handle_texture"
 	},
 	"elements": [
 		{

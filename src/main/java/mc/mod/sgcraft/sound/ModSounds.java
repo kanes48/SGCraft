@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 public class ModSounds {
 
     public static final SoundEvent SHOTGUN_SHOT = registerSoundEvent("shotgun_shot");
+    public static final SoundEvent SNIPER_SHOT = registerSoundEvent("sniper_shot");
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.fromNamespaceAndPath(SGCraft.MOD_ID, name);

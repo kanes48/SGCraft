@@ -15,6 +15,7 @@ import java.util.function.Function;
 public class ModItems {
 
     public static final Item SHOTGUN = registerItem("shotgun", ShotgunItem::new);
+    public static final Item SNIPER = registerItem("sniper", SniperItem::new);
 
     private static Item registerItem(String name, Function<Item.Properties, Item> function) {
         Identifier id = Identifier.fromNamespaceAndPath(SGCraft.MOD_ID, name);
@@ -32,6 +33,8 @@ public class ModItems {
     public static void registerToCreativeTab() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
                 .register(output -> output.accept(SHOTGUN));
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT)
+                .register(output -> output.accept(SNIPER));
     }
 
     public static void registerModItems() {

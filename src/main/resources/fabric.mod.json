@@ -19,12 +19,13 @@
 			"mc.mod.sgcraft.SGCraft"
 		],
 		"client": [
-			"mc.mod.sgcraft.client.ShotgunClient"
-		],
-		"fabric-datagen": [
-			"mc.mod.sgcraft.SGCraftDataGenerator"
+			"mc.mod.sgcraft.client.ShotgunClient",
+			"mc.mod.sgcraft.client.SgcraftClient"
 		]
 	},
+	"mixins": [
+		"sgcraft.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.2",

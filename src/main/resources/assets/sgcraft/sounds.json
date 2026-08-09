@@ -3,5 +3,10 @@
     "sounds": [
       "sgcraft:doom-shotgun-2017-80549"
     ]
+  },
+  "sniper_shot": {
+    "sounds": [
+      "sgcraft:sniper-rifle-5989"
+    ]
   }
 }
