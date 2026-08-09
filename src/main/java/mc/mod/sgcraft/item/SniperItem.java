@@ -2,36 +2,67 @@ package mc.mod.sgcraft.item;
 
 import mc.mod.sgcraft.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class SniperItem extends Item {
 
-    private static final double RANGE = 100.0;
+    private static final double RANGE = 200.0;
     private static final float DAMAGE = 40.0F;
+
+    // 20 ticks default val
+    private static int SHOT_DELAY_TICKS = 20;
 
     public SniperItem(Properties properties) {
         super(properties);
     }
 
+    /**
+     * Changes the sniper delay.
+     *
+     * 20 ticks = 1 second
+     */
+    public static void setShotDelay(int ticks) {
+        SHOT_DELAY_TICKS = Math.max(0, ticks);
+    }
 
     /**
      * Fires the sniper.
      *
-     * This is called by the client when left click is pressed.
+     * This is called when the player fires the weapon.
      */
     public static void fire(
-            net.minecraft.world.level.Level level,
+            Level level,
             Player player
     ) {
+
+        /*
+         * Prevent firing while the sniper is on cooldown.
+         */
+        if (player.getCooldowns().isOnCooldown(
+                ModItems.SNIPER.getDefaultInstance()
+        )) {
+            return;
+        }
+
+        /*
+         * Start the cooldown.
+         *
+         * The current delay is used here, so changing the
+         * command setting changes the delay immediately.
+         */
+        player.getCooldowns().addCooldown(
+                ModItems.SNIPER.getDefaultInstance(),
+                SHOT_DELAY_TICKS
+        );
+
         Vec3 direction = player.getViewVector(1.0F).normalize();
 
         EntityHitResult hit = raycastEntity(
@@ -69,7 +100,7 @@ public class SniperItem extends Item {
      * Client-side muzzle flash.
      */
     public static void spawnMuzzleFlash(
-            net.minecraft.world.level.Level level,
+            Level level,
             Player player
     ) {
         Vec3 start = player.getEyePosition();
@@ -79,6 +110,7 @@ public class SniperItem extends Item {
         Vec3 muzzle = start.add(direction.scale(0.8));
 
         for (int i = 0; i < 10; i++) {
+
             level.addParticle(
                     ParticleTypes.FLAME,
                     muzzle.x,
@@ -113,7 +145,9 @@ public class SniperItem extends Item {
     ) {
         Vec3 start = player.getEyePosition();
 
-        Vec3 maxEnd = start.add(direction.scale(range));
+        Vec3 maxEnd = start.add(
+                direction.scale(range)
+        );
 
         HitResult blockHit = player.level().clip(
                 new ClipContext(
@@ -134,21 +168,36 @@ public class SniperItem extends Item {
 
         Entity closestEntity = null;
 
-        double closestDistance = start.distanceToSqr(end);
+        double closestDistance =
+                start.distanceToSqr(end);
 
         for (Entity entity : player.level().getEntities(
                 player,
                 player.getBoundingBox()
-                        .expandTowards(direction.scale(start.distanceTo(end)))
+                        .expandTowards(
+                                direction.scale(
+                                        start.distanceTo(end)
+                                )
+                        )
                         .inflate(1.0),
-                entity -> entity instanceof LivingEntity && entity.isAlive()
+                entity ->
+                        entity instanceof LivingEntity
+                                && entity.isAlive()
         )) {
-            var box = entity.getBoundingBox().inflate(0.3);
 
-            var hit = box.clip(start, end);
+            var box = entity
+                    .getBoundingBox()
+                    .inflate(0.3);
+
+            var hit = box.clip(
+                    start,
+                    end
+            );
 
             if (hit.isPresent()) {
-                double distance = start.distanceToSqr(hit.get());
+
+                double distance =
+                        start.distanceToSqr(hit.get());
 
                 if (distance < closestDistance) {
                     closestDistance = distance;
@@ -158,7 +207,9 @@ public class SniperItem extends Item {
         }
 
         if (closestEntity != null) {
-            Vec3 hitPos = closestEntity.getBoundingBox()
+
+            Vec3 hitPos = closestEntity
+                    .getBoundingBox()
                     .clip(start, end)
                     .orElse(closestEntity.position());
 

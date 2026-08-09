@@ -1,5 +1,7 @@
 package mc.mod.sgcraft;
 
+import mc.mod.sgcraft.command.ShotgunCommand;
+import mc.mod.sgcraft.command.SniperCommand;
 import mc.mod.sgcraft.item.ModItems;
 import mc.mod.sgcraft.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
@@ -19,8 +21,13 @@ public class SGCraft implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Init items and sounds
 		ModItems.registerModItems();
 		ModSounds.registerModSounds();
+
+		// Init the commands
+		ShotgunCommand.register();
+		SniperCommand.register();
 	}
 
 	public static Identifier id(String path) {

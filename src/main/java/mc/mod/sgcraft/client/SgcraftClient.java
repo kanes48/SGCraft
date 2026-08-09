@@ -1,6 +1,5 @@
 package mc.mod.sgcraft.client;
 
-import mc.mod.sgcraft.SGCraft;
 import mc.mod.sgcraft.item.SniperItem;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
