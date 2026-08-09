@@ -23,10 +23,6 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(
             ItemModelGenerators itemModelGenerator
     ) {
-        itemModelGenerator.generateFlatItem(
-                ModItems.SHOTGUN,
-                ModelTemplates.FLAT_ITEM
-        );
     }
 
     @Override

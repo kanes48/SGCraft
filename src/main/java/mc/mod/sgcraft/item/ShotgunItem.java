@@ -307,6 +307,29 @@ public class ShotgunItem extends Item {
         Vec3 end = maxEnd;
 
         if (blockHit.getType() != HitResult.Type.MISS) {
+            /*
+             * The pellet hit a block before reaching its maximum range.
+             *
+             * Break the block that was hit.
+             */
+            if (blockHit instanceof net.minecraft.world.phys.BlockHitResult blockHitResult) {
+                // Get the position of the block that was hit
+                var blockPos = blockHitResult.getBlockPos();
+
+                // Break the block and drop its normal item drops
+                player.level().destroyBlock(
+                        blockPos,
+                        true,
+                        player
+                );
+            }
+
+            /*
+             * The pellet still stops at the block's original position.
+             *
+             * This prevents the pellet from hitting an entity behind
+             * the block that was destroyed.
+             */
             end = blockHit.getLocation();
         }
 
